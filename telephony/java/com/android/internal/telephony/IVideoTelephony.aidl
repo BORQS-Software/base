@@ -70,6 +70,11 @@ interface IVideoTelephony {
      */
     boolean isVtIdle();
     
+    /**
+     * Check if the voice call is going on.
+     * @return true if the voice call state is IDLE.
+     */
+    boolean isVoiceIdle();
      
     void registerListener(IVideoTelephonyListener l);
     void unregisterListener(IVideoTelephonyListener l);

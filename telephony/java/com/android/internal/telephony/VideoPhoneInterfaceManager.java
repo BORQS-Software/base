@@ -459,5 +459,27 @@ public class VideoPhoneInterfaceManager extends IVideoTelephony.Stub {
         Phone.State s = mPhone.getState();        
 		return (mPhone.getState() == Phone.State.IDLE);
     }
+
+    public boolean isVoiceIdle() {
+	CallManager cm = CallManager.getInstance();
+        Call.State cs = mPhone.getForegroundCall().getState() ;
+        Log.d(TAG,"VT Call State = "+cs);
+	//cs = mPhone.getBackgroundCall().getState() ;
+	cs = mPhone.getForegroundCall().getState() ;
+	//Log.d(TAG, " Background Call state is "+cs);
+	Log.d(TAG, " Foreground Call state is "+cs);
+	if(cs == Call.State.ACTIVE){
+	    Log.d(TAG, " Phone state is offhook");
+	    //if(cm.getBgCallConnections().get(0).isVoice()){
+	    if(mPhone.getForegroundCall().getEarliestConnection().isVoice()){
+		Log.d(TAG, " ongoing call is voice");
+	        //rejectCall();
+
+	        return false;
+	    }
+	}
+	return true;
+    }
+
 }
 
